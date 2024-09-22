@@ -48,9 +48,9 @@ def train_evaluate_model(X, y, model, model_name):
     # Calculate metrics
     # Calculate metrics
     accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred, average='micro') # Changed line
-    recall = recall_score(y_test, y_pred, average='micro') # Changed line
-    f1 = f1_score(y_test, y_pred, average='micro') # Changed line
+    precision = precision_score(y_test, y_pred, average='micro') 
+    recall = recall_score(y_test, y_pred, average='micro')
+    f1 = f1_score(y_test, y_pred, average='micro')
 
     print(f"\n{model_name} Performance:")
     print(f"Accuracy: {accuracy:.4f}")
@@ -90,14 +90,12 @@ def analyze_feature_importance(model, X):
 # Main execution
 if __name__ == "__main__":
     # Load and preprocess the data
-    X, y = load_and_preprocess_data('Training.csv')  # Replace with your dataset
+    X, y = load_and_preprocess_data('Training.csv') 
 
     # Define models
     models = {
         'Logistic Regression': LogisticRegression(),
-        'Decision Tree': DecisionTreeClassifier(),
-        'SVM': SVC(),
-        'Random Forest': RandomForestClassifier()
+
     }
 
     # Train and evaluate models
@@ -106,12 +104,8 @@ if __name__ == "__main__":
         trained_model, accuracy, precision, recall, f1 = train_evaluate_model(X, y, model, name)
         results[name] = {'model': trained_model, 'accuracy': accuracy, 'precision': precision, 'recall': recall, 'f1': f1}
 
-    # Find the best model
     best_model_name = max(results, key=lambda x: results[x]['f1'])
     best_model = results[best_model_name]['model']
-
-    print(f"\nBest Model: {best_model_name}")
-    print(f"F1-score: {results[best_model_name]['f1']:.4f}")
 
     # Analyze feature importance for the best model
     analyze_feature_importance(best_model, X)
